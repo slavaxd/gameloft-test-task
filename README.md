@@ -9,11 +9,17 @@ This test task built with Vite 7, React 19, TypeScript, TailwindCSS 4, Eslint an
 - [Tailwindcss](https://tailwindcss.com)
 - [Eslint](https://eslint.org)
 - [Prettier](https://prettier.io)
-- [React Slick](https://react-slick.neostack.com/) - Smooth carousel functionality with auto-play
+- [React Slick](https://react-slick.neostack.com/) - Carousel
 
 ## Features
 - Product carousel showcasing products
-- Shopping cart with discount logic
+- Shopping cart with discount logic and quantity management
+- Responsive design for various screen sizes (1/2/3 items per view)
+- Custom SVG icons throughout the app
+- Full TypeScript type safety
+
+## Live Demo:
+https://gameloft-test-task-iota.vercel.app/
 
 ## Getting Started
 
