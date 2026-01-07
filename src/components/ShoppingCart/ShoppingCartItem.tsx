@@ -2,7 +2,11 @@ import type { CartItem } from '@/types';
 import MinusIcon from '@/assets/icons/minus.svg?react';
 import PlusIcon from '@/assets/icons/plus.svg?react';
 import TrashBinIcon from '@/assets/icons/trashBin.svg?react';
-import { DISCOUNT_RATE, DISCOUNT_THRESHOLD } from './constants';
+import {
+  calculateFinalItemPrice,
+  calculateItemDiscount,
+  calculateItemTotal,
+} from '@/components/ShoppingCart/helpers';
 
 type Props = {
   data: CartItem;
@@ -15,16 +19,14 @@ export const ShoppingCartItem = ({
   onUpdateQuantity,
   onRemoveItem,
 }: Props) => {
-  const itemTotal = data.price * data.quantity;
-  const discountAmount =
-    data.quantity > DISCOUNT_THRESHOLD ? itemTotal * DISCOUNT_RATE : 0;
-  const itemFinalPrice = itemTotal - discountAmount;
+  const itemTotal = calculateItemTotal(data.price, data.quantity);
+  const discountAmount = calculateItemDiscount(data.price, data.quantity);
+  const itemFinalPrice = calculateFinalItemPrice(data.price, data.quantity);
+
+  const hasDiscount = discountAmount > 0;
 
   return (
-    <div
-      key={data.id}
-      className="flex gap-4 bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors"
-    >
+    <div className="flex gap-4 bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors">
       <img
         src={data.image}
         alt={data.name}
@@ -38,7 +40,9 @@ export const ShoppingCartItem = ({
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 bg-white rounded-lg border border-gray-200">
             <button
-              onClick={() => onUpdateQuantity(data.id, data.quantity - 1)}
+              onClick={() =>
+                onUpdateQuantity(data.id, Math.max(1, data.quantity - 1))
+              }
               type="button"
               className="p-2 text-gray-600 hover:bg-gray-100 rounded-l-lg transition-colors cursor-pointer"
               aria-label="Decrease quantity"
@@ -70,24 +74,20 @@ export const ShoppingCartItem = ({
       </div>
 
       <div className="text-right">
-        {data.quantity > DISCOUNT_THRESHOLD ? (
+        {hasDiscount ? (
           <div>
             <p className="text-gray-400 line-through text-sm">
               ${itemTotal.toFixed(2)}
             </p>
 
-            {data.quantity > DISCOUNT_THRESHOLD && (
-              <span className="py-1 px-2 text-white bg-red-500 text-sm rounded-full">
-                -${discountAmount.toFixed(2)}
-              </span>
-            )}
+            <span className="py-1 px-2 text-white bg-red-500 text-sm rounded-full">
+              -${discountAmount.toFixed(2)}
+            </span>
 
             <p className="text-gray-800">${itemFinalPrice.toFixed(2)}</p>
           </div>
         ) : (
-          <p className="text-gray-800">
-            ${(data.price * data.quantity).toFixed(2)}
-          </p>
+          <p className="text-gray-800">${itemTotal.toFixed(2)}</p>
         )}
       </div>
     </div>

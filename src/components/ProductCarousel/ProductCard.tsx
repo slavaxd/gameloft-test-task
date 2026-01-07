@@ -1,4 +1,4 @@
-import type { Product } from '@/types';
+import { Product } from '@/types';
 import { useState } from 'react';
 
 type Props = {

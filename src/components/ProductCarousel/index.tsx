@@ -1,5 +1,5 @@
 import Slider from 'react-slick';
-import type { Product } from '@/types';
+import { Product } from '@/types';
 import { productCarouselSettings } from './settings';
 import { ProductCard } from './ProductCard';
 

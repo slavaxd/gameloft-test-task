@@ -2,8 +2,12 @@ import type { CartItem } from '@/types';
 import CrossIcon from '@/assets/icons/cross.svg?react';
 import CartIcon from '@/assets/icons/cart.svg?react';
 import { ShoppingCartItem } from './ShoppingCartItem';
-import { DISCOUNT_RATE, DISCOUNT_THRESHOLD } from './constants';
-import { useEffect } from 'react';
+import { useEscapeKey } from '@/hooks/useEscapeKey';
+import {
+  calculateDiscount,
+  calculateSubtotal,
+  calculateTotal,
+} from '@/helpers/shoppingCartTotals';
 
 type Props = {
   cart: CartItem[];
@@ -18,31 +22,11 @@ export const ShoppingCart = ({
   onRemoveItem,
   onUpdateQuantity,
 }: Props) => {
-  const subtotal = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0,
-  );
-  const discount = cart.reduce((sum, item) => {
-    if (item.quantity > DISCOUNT_THRESHOLD) {
-      return sum + item.price * item.quantity * DISCOUNT_RATE;
-    }
-    return sum;
-  }, 0);
-  const total = subtotal - discount;
+  useEscapeKey(onCloseCart);
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onCloseCart();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [onCloseCart]);
+  const subtotal = calculateSubtotal(cart);
+  const discount = calculateDiscount(cart);
+  const total = calculateTotal(cart);
 
   return (
     <div
