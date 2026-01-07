@@ -1,15 +1,44 @@
+import { useState } from 'react';
+import { Header, ProductCarousel, ShoppingCart } from '@/components';
+import { products } from '@/mocks';
+import { getTotalCartItems } from '@/helpers/shoppingCart';
+import { useShoppingCart } from '@/hooks/useShoppingCart';
+
 export const App = () => {
+  const { cart, addToCart, removeFromCart, updateQuantity } = useShoppingCart();
+  const [isCartOpened, setIsCartOpened] = useState(false);
+
+  const handleOpenCart = () => setIsCartOpened(true);
+  const handleCloseCart = () => setIsCartOpened(false);
+
+  const totalCartItems = getTotalCartItems(cart);
+
   return (
-    <div className="relative overflow-hidden bg-white">
-      <div className="h-screen sm:pb-40 sm:pt-24 lg:pb-48 lg:pt-40">
-        <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
-          <div className="sm:max-w-lg">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Welcome!
-            </h1>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gray-100">
+      <Header handleOpenCart={handleOpenCart} totalCartItems={totalCartItems} />
+
+      <main className="py-12">
+        <section className="text-center mb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
+            Welcome to the Magic Store
+          </h2>
+
+          <p className="text-lg text-gray-600">
+            Discover our exclusive collection of magical products.
+          </p>
+        </section>
+
+        <ProductCarousel products={products} onAddToCart={addToCart} />
+
+        {isCartOpened && (
+          <ShoppingCart
+            cart={cart}
+            onCloseCart={handleCloseCart}
+            onUpdateQuantity={updateQuantity}
+            onRemoveItem={removeFromCart}
+          />
+        )}
+      </main>
     </div>
   );
 };
