@@ -26,18 +26,18 @@ export const ShoppingCartItem = ({
   const hasDiscount = discountAmount > 0;
 
   return (
-    <div className="flex gap-4 bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors">
+    <div className="flex gap-4 flex-wrap bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors">
       <img
         src={data.image}
         alt={data.name}
-        className="w-24 h-24 object-cover rounded-lg"
+        className="w-full h-32 sm:w-24 sm:h-24 object-cover rounded-lg"
       />
 
       <div className="flex-1">
-        <h3 className="text-xl font-bold text-gray-800 mb-1">{data.name}</h3>
+        <h3 className="sm:text-xl font-bold text-gray-800 mb-1">{data.name}</h3>
         <p className="text-blue-600 mb-3">${data.price.toFixed(2)}</p>
 
-        <div className="flex items-center gap-3">
+        <div className="flex justify-around sm:justify-start items-center gap-3">
           <div className="flex items-center gap-2 bg-white rounded-lg border border-gray-200">
             <button
               onClick={() =>
@@ -73,9 +73,9 @@ export const ShoppingCartItem = ({
         </div>
       </div>
 
-      <div className="text-right">
+      <div className="flex-1 text-right">
         {hasDiscount ? (
-          <div>
+          <>
             <p className="text-gray-400 line-through text-sm">
               ${itemTotal.toFixed(2)}
             </p>
@@ -85,7 +85,7 @@ export const ShoppingCartItem = ({
             </span>
 
             <p className="text-gray-800">${itemFinalPrice.toFixed(2)}</p>
-          </div>
+          </>
         ) : (
           <p className="text-gray-800">${itemTotal.toFixed(2)}</p>
         )}

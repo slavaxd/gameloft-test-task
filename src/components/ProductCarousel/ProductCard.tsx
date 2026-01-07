@@ -17,7 +17,7 @@ export const ProductCard = ({ product, onAddToCart }: Props) => {
 
   return (
     <div className="bg-white rounded-2xl overflow-hidden transform transition-all duration-300 hover:scale-105">
-      <div className="h-64 overflow-hidden">
+      <div className="h-60 sm:h-80 md:h-60 xl:h-80 overflow-hidden">
         <img
           src={product.image}
           alt={product.name}
@@ -25,7 +25,7 @@ export const ProductCard = ({ product, onAddToCart }: Props) => {
         />
       </div>
 
-      <div className="p-6 flex flex-col">
+      <div className="p-6 flex flex-col justify-between md:min-h-50 lg:min-h-55 xl:min-h-fit">
         <h3 className="text-xl font-bold text-grey-800 mb-2">{product.name}</h3>
         <p className="text-grey-600 mb-4 text-base h-12">
           {product.description}

@@ -35,7 +35,7 @@ export const ShoppingCart = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col"
+        className="bg-white rounded-2xl shadow-2xl max-w-[80vw] w-full md:w-3xl max-h-[90vh] flex flex-col"
       >
         {/* Cart Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">

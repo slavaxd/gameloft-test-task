@@ -17,8 +17,8 @@ export const App = () => {
     <div className="min-h-screen bg-gray-100">
       <Header handleOpenCart={handleOpenCart} totalCartItems={totalCartItems} />
 
-      <main className="max-w-7xl mx-auto py-12">
-        <div className="text-center mb-12">
+      <main className="py-12">
+        <section className="text-center mb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
             Welcome to the Magic Store
           </h2>
@@ -26,7 +26,7 @@ export const App = () => {
           <p className="text-lg text-gray-600">
             Discover our exclusive collection of magical products.
           </p>
-        </div>
+        </section>
 
         <ProductCarousel products={products} onAddToCart={addToCart} />
 

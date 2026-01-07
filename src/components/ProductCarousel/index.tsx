@@ -10,7 +10,7 @@ type Props = {
 
 export const ProductCarousel = ({ products, onAddToCart }: Props) => {
   return (
-    <div className="relative px-8">
+    <section className="relative px-4 sm:px-6 lg:px-8">
       <Slider {...productCarouselSettings}>
         {products.map((product) => (
           <div key={product.id} className="p-4">
@@ -18,6 +18,6 @@ export const ProductCarousel = ({ products, onAddToCart }: Props) => {
           </div>
         ))}
       </Slider>
-    </div>
+    </section>
   );
 };
